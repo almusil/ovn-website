@@ -1,6 +1,6 @@
 '\" p
 .\" -*- nroff -*-
-.TH "ovn-architecture" 7 "OVN Architecture" "OVN 22\[char46]12\[char46]90" "OVN Manual"
+.TH "ovn-architecture" 7 "OVN Architecture" "OVN 22\[char46]03\[char46]6" "OVN Manual"
 .fp 5 L CR              \\" Make fixed-width font available as \\fL.
 .de TQ
 .  br
@@ -379,7 +379,7 @@ The CMS may configure distributed gateway ports three different ways\[char46] Se
 Distributed gateway ports support high availability\[char46] When more than one chassis is specified, OVN only uses one at a time as the gateway chassis\[char46] OVN uses BFD to monitor gateway connectivity, preferring the highest-priority gateway that is online\[char46]
 .PP
 .PP
-A logical router can have multiple distributed gateway ports, each connecting different external networks\[char46] Load balancing is not yet supported for logical routers with more than one distributed gateway port configured\[char46]
+A logical router can have multiple distributed gateway ports, each connecting different external networks\[char46] However, some features, such as NAT and load balancers, are not supported yet for logical routers with more than one distributed gateway port configured\[char46]
 .SU "Physical VLAN MTU Issues"
 .PP
 .PP
@@ -563,7 +563,7 @@ OpenFlow table 0 performs physical-to-logical translation\[char46] It matches th
 Packets that originate from a container nested within a VM are treated in a slightly different way\[char46] The originating container can be distinguished based on the VIF-specific VLAN ID, so the physical-to-logical translation flows additionally match on VLAN ID and the actions strip the VLAN header\[char46] Following this step, OVN treats packets from containers just like any other packets\[char46]
 .IP
 Table 0 also processes packets that arrive from other chassis\[char46] It distinguishes them from other packets by ingress port, which is a tunnel\[char46] As with packets just entering the OVN pipeline, the actions annotate these packets with logical datapath metadata\[char46] For tunnel types that support it, they are also annotated with logical ingress port metadata\[char46] In addition, the actions set the logical output port field, which is available because in OVN tunneling occurs after the logical output port is known\[char46] These pieces of information are obtained from the tunnel encapsulation metadata (see \fBTunnel
-Encapsulations\fR for encoding details)\[char46] Then the actions resubmit to table 33 to enter the logical egress pipeline\[char46]
+Encapsulations\fR for encoding details)\[char46] Then the actions resubmit to table 38 to enter the logical egress pipeline\[char46]
 .IP 2. .4in
 OpenFlow tables 8 through 31 execute the logical ingress pipeline from the \fBLogical_Flow\fR table in the OVN Southbound database\[char46] These tables are expressed entirely in terms of logical concepts like logical ports and logical datapaths\[char46] A big part of \fBovn\-controller\fR\(cqs job is to translate them into equivalent OpenFlow (in particular it translates the table numbers: \fBLogical_Flow\fR tables 0 through 23 become OpenFlow tables 8 through 31)\[char46]
 .IP
@@ -644,7 +644,7 @@ Consider a packet sent from one virtual machine or container to another VM or co
 When the packet reaches table 65, the logical egress port is a logical patch port\[char46] \fBovn\-controller\fR implements output to the logical patch is packet by cloning and resubmitting directly to the first OpenFlow flow table in the ingress pipeline, setting the logical ingress port to the peer logical patch port, and using the peer logical patch port\(cqs logical datapath (that represents the logical router)\[char46]
 .PP
 .PP
-The packet re-enters the ingress pipeline in order to traverse tables 8 to 65 again, this time using the logical datapath representing the logical router\[char46] The processing continues as described in the previous section \fBArchitectural Physical Life Cycle of a Packet\fR\[char46] When the packet reaches table 65, the logical egress port will once again be a logical patch port\[char46] In the same manner as described above, this logical patch port will cause the packet to be resubmitted to OpenFlow tables 8 to 65, this time using the logical datapath representing the logical switch that the destination VM or container is attached to\[char46]
+The packet re-enters the ingress pipeline in order to traverse tables 8 to 65 again, this time using the logical datapath representing the logical router\[char46] The processing continues as described in the previous section \fBArchitectural Physical Life Cycle of a Packet\fR\[char46] When the packet reachs table 65, the logical egress port will once again be a logical patch port\[char46] In the same manner as described above, this logical patch port will cause the packet to be resubmitted to OpenFlow tables 8 to 65, this time using the logical datapath representing the logical switch that the destination VM or container is attached to\[char46]
 .PP
 .PP
 The packet traverses tables 8 to 65 a third and final time\[char46] If the destination VM or container resides on a remote hypervisor, then table 37 will send the packet on a tunnel port from the sender\(cqs hypervisor to the remote hypervisor\[char46] Finally table 65 will output the packet directly to the destination VM or container\[char46]
@@ -702,7 +702,7 @@ OVN allows you to specify a prioritized list of chassis for a distributed gatewa
 When multiple chassis have been specified for a gateway, all chassis that may send packets to that gateway will enable BFD on tunnels to all configured gateway chassis\[char46] The current master chassis for the gateway is the highest priority gateway chassis that is currently viewed as active based on BFD status\[char46]
 .PP
 .PP
-For more information on L3 gateway high availability, please refer to http://docs\[char46]ovn\[char46]org/en/latest/topics/high-availability\[char46]
+For more information on L3 gateway high availability, please refer to http://docs\[char46]ovn\[char46]org/en/latest/topics/high-availability\[char46]html\[char46]
 .ST "Restrictions of Distributed Gateway Ports"
 .PP
 .PP
@@ -883,7 +883,7 @@ The steps below refer often to details of the OVN and VTEP database schemas\[cha
 A VTEP gateway\(cqs life cycle begins with the administrator registering the VTEP gateway as a \fBPhysical_Switch\fR table entry in the \fBVTEP\fR database\[char46] The \fBovn\-controller\-vtep\fR connected to this VTEP database, will recognize the new VTEP gateway and create a new \fBChassis\fR table entry for it in the \fBOVN_Southbound\fR database\[char46]
 .IP 2. .4in
 The administrator can then create a new \fBLogical_Switch\fR table entry, and bind a particular vlan on a VTEP gateway\(cqs port to any VTEP logical switch\[char46] Once a VTEP logical switch is bound to a VTEP gateway, the \fBovn\-controller\-vtep\fR will detect it and add its name to the \fIvtep_logical_switches\fR column of the \fBChassis\fR table in the \fB
-OVN_Southbound\fR database\[char46] Note, the \fItunnel_key\fR column of VTEP logical switch is not filled at creation\[char46] The \fBovn\-controller\-vtep\fR will set the column when the corresponding vtep logical switch is bound to an OVN logical network\[char46]
+OVN_Southbound\fR database\[char46] Note, the \fItunnel_key\fR column of VTEP logical switch is not filled at creation\[char46] The \fBovn\-controller\-vtep\fR will set the column when the correponding vtep logical switch is bound to an OVN logical network\[char46]
 .IP 3. .4in
 Now, the administrator can use the CMS to add a VTEP logical switch to the OVN logical network\[char46] To do that, the CMS must first create a new \fBLogical_Switch_Port\fR table entry in the \fB
 OVN_Northbound\fR database\[char46] Then, the \fItype\fR column of this entry must be set to \(dqvtep\(dq\[char46] Next, the \fI
@@ -925,7 +925,7 @@ A global OVN Interconnection Southbound database is introduced for exchanging co
 .IP \(bu
 Datapath bindings for transit switches, which mainly contains the tunnel keys generated for each transit switch\[char46] Separate key ranges are reserved for transit switches so that they will never conflict with any tunnel keys locally assigned for datapaths within each AZ\[char46]
 .IP \(bu
-Availability zones, which are registered by \fBovn\-ic\fR from each AZ\[char46]
+Availability zones, which are registerd by \fBovn\-ic\fR from each AZ\[char46]
 .IP \(bu
 Gateways\[char46] Each AZ specifies chassises that are supposed to work as interconnection gateways, and the \fBovn\-ic\fR will populate this information to the interconnection southbound DB\[char46] The \fBovn\-ic\fR from all the other AZs will learn the gateways and populate to their own southbound DB as a chassis\[char46]
 .IP \(bu
@@ -1108,7 +1108,7 @@ The limited space available for metadata when VXLAN tunnels are enabled in a clu
 .IP \(bu
 The maximum number of networks is reduced to 4096\[char46]
 .IP \(bu
-The maximum number of ports per network is reduced to 4096\[char46] (Including multicast group ports\[char46])
+The maximum number of ports per network is reduced to 2048\[char46]
 .IP \(bu
 ACLs matching against logical ingress port identifiers are not supported\[char46]
 .IP \(bu
