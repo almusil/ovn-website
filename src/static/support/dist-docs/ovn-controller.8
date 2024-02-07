@@ -1,6 +1,6 @@
 '\" p
 .\" -*- nroff -*-
-.TH "ovn-controller" 8 "ovn-controller" "OVN 22\[char46]12\[char46]90" "OVN Manual"
+.TH "ovn-controller" 8 "ovn-controller" "OVN 22\[char46]12\[char46]3" "OVN Manual"
 .fp 5 L CR              \\" Make fixed-width font available as \\fL.
 .de TQ
 .  br
@@ -193,13 +193,13 @@ Prints version information to the console\[char46]
 .RS
 .TP
 \fBexternal_ids:system\-id\fR
-The chassis name to use in the Chassis table\[char46] Changing the \fBsystem\-id\fR while \fBovn\-controller\fR is running is not directly supported\[char46] Users have two options: either first gracefully stop \fBovn\-controller\fR or manually delete the stale \fBChassis\fR and \fBChassis_Private\fR records after changing the \fBsystem\-id\fR\[char46] Note that the chassis name can also be provided via the \fBsystem\-id\-override\fR file in the local OVN \(dqetc\(dq directory or via the \fB\-n\fR command-line option\[char46] The following precedence is used: first, the command-line option is read; if not present, the \fBsystem\-id\-override\fR file is read; if not present, then the name configured in the database is used\[char46]
+The chassis name to use in the Chassis table\[char46] Changing the \fBsystem\-id\fR while \fBovn\-controller\fR is running is not directly supported\[char46] Users have two options: either first gracefully stop \fBovn\-controller\fR or manually delete the stale \fBChassis\fR and \fBChassis_Private\fR records after changing the \fBsystem\-id\fR\[char46]
 .TP
 \fBexternal_ids:hostname\fR
 The hostname to use in the Chassis table\[char46]
 .TP
 \fBexternal_ids:ovn\-bridge\fR
-The integration bridge to which logical ports are attached\[char46] The default is \fBbr\-int\fR\[char46] If this bridge does not exist when ovn-controller starts, it will be created automatically with the default configuration suggested in \fBovn\-architecture\fR(7)\[char46] When more than one controllers are running on the same host, \fBexternal_ids:ovn\-bridge\-CHASSIS_NAME\fR should be set for each of them, pointing to a unique bridge\[char46] This is required to avoid controllers stepping on each others\(cq feet\[char46]
+The integration bridge to which logical ports are attached\[char46] The default is \fBbr\-int\fR\[char46] If this bridge does not exist when ovn-controller starts, it will be created automatically with the default configuration suggested in \fBovn\-architecture\fR(7)\[char46]
 .TP
 \fBexternal_ids:ovn\-bridge\-datapath\-type\fR
 This configuration is optional\[char46] If set, then the datapath type of the integration bridge will be set to the configured value\[char46] If this option is not set, then \fBovn\-controller\fR will not modify the existing \fBdatapath\-type\fR of the integration bridge\[char46]
@@ -210,7 +210,7 @@ The OVN database that this system should connect to for its configuration, in on
 \fBexternal_ids:ovn\-monitor\-all\fR
 A boolean value that tells if \fBovn\-controller\fR should monitor all records of tables in \fIovs-database\fR\[char46] If set to \fBfalse\fR, it will conditionally monitor the records that is needed in the current chassis\[char46]
 .IP
-It is more optimal to set it to \fBtrue\fR in use cases when the chassis would anyway need to monitor most of the records in \fIovs-database\fR, which would save the overhead of conditions processing, especially for server side\[char46] Typically, set it to \fBtrue\fR for environments that all workloads need to be reachable from each other\[char46]
+It is more efficient to set it to \fBtrue\fR in use cases where the chassis would anyway need to monitor most of the records in \fIOVN Southbound\fR database, which would save the overhead of conditions processing, especially for server side\[char46] Typically, set it to \fBtrue\fR for environments that all workloads need to be reachable from each other\[char46]
 .IP
 Default value is \fIfalse\fR\[char46]
 .TP
@@ -227,9 +227,9 @@ If the value is nonzero, then it will be forced to a value of at least 5s\[char4
 \fBexternal_ids:ovn\-encap\-type\fR
 The encapsulation type that a chassis should use to connect to this node\[char46] Multiple encapsulation types may be specified with a comma-separated list\[char46] Each listed encapsulation type will be paired with \fBovn\-encap\-ip\fR\[char46]
 .IP
-Supported tunnel types for connecting hypervisors are \fBgeneve\fR and \fBstt\fR\[char46] Gateways may use \fBgeneve\fR, \fBvxlan\fR, or \fBstt\fR\[char46]
+Supported tunnel types for connecting hypervisors and gateways are \fBgeneve\fR, \fBvxlan\fR, and \fBstt\fR\[char46]
 .IP
-Due to the limited amount of metadata in \fBvxlan\fR, the capabilities and performance of connected gateways will be reduced versus other tunnel formats\[char46]
+Due to the limited amount of metadata in \fBvxlan\fR, the capabilities and performance of connected gateways and hypervisors will be reduced versus other tunnel formats\[char46]
 .TP
 \fBexternal_ids:ovn\-encap\-ip\fR
 The IP address that a chassis should use to connect to this node using encapsulation types specified by \fBexternal_ids:ovn\-encap\-type\fR\[char46]
@@ -292,13 +292,10 @@ When used, this configuration value specifies the time, in milliseconds, since t
 .TP
 \fBexternal_ids:ovn\-set\-local\-ip\fR
 The boolean flag indicates if \fBovn\-controller\fR when create tunnel ports should set \fBlocal_ip\fR parameter\[char46] Can be heplful to pin source outer IP for the tunnel when multiple interfaces are used on the host for overlay traffic\[char46]
+.TP
+\fBexternal_ids:garp\-max\-timeout\-sec\fR
+When used, this configuration value specifies the maximum timeout (in seconds) between two consecutive GARP packets sent by \fBovn\-controller\fR\[char46] \fBovn\-controller\fR by default sends just 4 GARP packets with an exponential backoff timeout\[char46] Setting \fBexternal_ids:garp\-max\-timeout\-sec\fR allows to cap for the exponential backoff used by \fBovn\-controller\fR to send GARPs packets\[char46]
 .RE
-.PP
-.PP
-Most of configuration options listed above can also be set for a particular chassis name (see \fBexternal_ids:system\-id \fR for more information)\[char46] This can be achieved by setting \fBexternal_ids:option\-[chassis]\fR instead of \fBexternal_ids:option\fR\[char46] For example, set \fBexternal_ids:ovn\-encap\-ip\-otherhv\fR to use a particular IP address for the controller instance named \fBotherhv\fR\[char46] Name specific configuration options always override any global options set in the database\[char46]
-.PP
-.PP
-Chassis-specific configuration options in the database plus the ability to configure the chassis name to use via the \fBsystem\-id\-override\fR file or command line allows to run multiple \fBovn\-controller\fR instances with unique chassis names on the same host using the same \fBvswitchd\fR instance\[char46] This may be useful when running a hybrid setup with more than one CMS managing ports on the host, or to use different datapath types on the same host\[char46] Note that this ability is highly experimental and has known limitations (for example, stateful ACLs are not supported)\[char46] Use at your own risk\[char46]
 .PP
 .PP
 \fBovn\-controller\fR reads the following values from the \fBOpen_vSwitch\fR database of the local OVS instance:
