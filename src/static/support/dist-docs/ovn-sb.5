@@ -1,6 +1,6 @@
 '\" p
 .\" -*- nroff -*-
-.TH "ovn-sb" 5 " DB Schema 20.33.0" "Open vSwitch 24.03.90" "Open vSwitch Manual"
+.TH "ovn-sb" 5 " DB Schema 20.36.0" "Open vSwitch 24.09.90" "Open vSwitch Manual"
 .fp 5 L CR              \\" Make fixed-width font available as \\fL.
 .de TQ
 .  br
@@ -188,6 +188,9 @@ IP to MAC bindings
 .TQ 1in
 \fBChassis_Template_Var\fR
 Chassis_Template_Var configuration\[char46]
+.TQ 1in
+\fBECMP_Nexthop\fR
+ECMP_Nexthop configuration\[char46]
 .\" check if in troff mode (TTY)
 .if t \{
 .bp
@@ -206,211 +209,214 @@ represent strong references; thin lines represent weak references.
 .PS
 linethick = 1;
 linethick = 0.500000;
-box at 0.165487,0.106006 wid 0.179040 height 0.084805 "SB_Global"
-box at 0.165487,0.106006 wid 0.123485 height 0.029249
+box at 0.160384,0.102737 wid 0.173520 height 0.082190 "SB_Global"
+box at 0.160384,0.102737 wid 0.117964 height 0.026634
 linethick = 1.000000;
-box at 0.825085,0.169610 wid 0.184332 height 0.084805 "Connection"
+box at 0.799643,0.164380 wid 0.178648 height 0.082190 "Connection"
 linethick = 1.000000;
-box at 0.825085,0.042403 wid 0.127208 height 0.084805 "SSL"
+box at 0.799643,0.041095 wid 0.123285 height 0.082190 "SSL"
 linethick = 0.500000;
-box at 2.590962,0.857480 wid 0.134864 height 0.084805 "Chassis"
-box at 2.590962,0.857480 wid 0.079308 height 0.029249
+box at 2.511069,0.831040 wid 0.130705 height 0.082190 "Chassis"
+box at 2.511069,0.831040 wid 0.075150 height 0.026634
 linethick = 1.000000;
-box at 2.912882,1.479372 wid 0.127208 height 0.084805 "Encap"
+box at 2.823062,1.433755 wid 0.123285 height 0.082190 "Encap"
 linethick = 0.500000;
-box at 2.206965,0.612479 wid 0.242644 height 0.084805 "Chassis_Private"
-box at 2.206965,0.612479 wid 0.187089 height 0.029249
+box at 2.138913,0.593593 wid 0.235162 height 0.082190 "Chassis_Private"
+box at 2.138913,0.593593 wid 0.179606 height 0.026634
 linethick = 0.500000;
-box at 0.165487,2.812643 wid 0.198461 height 0.084805 "Address_Set"
-box at 0.165487,2.812643 wid 0.142905 height 0.029249
+box at 0.160384,2.725914 wid 0.192341 height 0.082190 "Address_Set"
+box at 0.160384,2.725914 wid 0.136785 height 0.026634
 linethick = 0.500000;
-box at 0.165487,2.939850 wid 0.189641 height 0.084805 "Port_Group"
-box at 0.165487,2.939850 wid 0.134085 height 0.029249
+box at 0.160384,2.849199 wid 0.183793 height 0.082190 "Port_Group"
+box at 0.160384,2.849199 wid 0.128238 height 0.026634
 linethick = 0.500000;
-box at 0.165487,2.459345 wid 0.219662 height 0.084805 "Logical_Flow"
-box at 0.165487,2.459345 wid 0.164106 height 0.029249
+box at 0.160384,2.383510 wid 0.212889 height 0.082190 "Logical_Flow"
+box at 0.160384,2.383510 wid 0.157333 height 0.026634
 linethick = 0.500000;
-box at 1.458171,2.101298 wid 0.270901 height 0.084805 "Datapath_Binding"
-box at 1.458171,2.101298 wid 0.215346 height 0.029249
+box at 1.413208,2.036504 wid 0.262548 height 0.082190 "Datapath_Binding"
+box at 1.413208,2.036504 wid 0.206992 height 0.026634
 linethick = 1.000000;
-box at 0.825085,2.683061 wid 0.290338 height 0.084805 "Logical_DP_Group"
+box at 0.799643,2.600327 wid 0.281386 height 0.082190 "Logical_DP_Group"
 linethick = 0.500000;
-box at 0.165487,1.759704 wid 0.256773 height 0.084805 "Multicast_Group"
-box at 0.165487,1.759704 wid 0.201217 height 0.029249
+box at 0.160384,1.705442 wid 0.248855 height 0.082190 "Multicast_Group"
+box at 0.160384,1.705442 wid 0.193299 height 0.026634
 linethick = 0.500000;
-box at 0.825085,1.281505 wid 0.210842 height 0.084805 "Port_Binding"
-box at 0.825085,1.281505 wid 0.155287 height 0.029249
+box at 0.799643,1.241990 wid 0.204341 height 0.082190 "Port_Binding"
+box at 0.799643,1.241990 wid 0.148785 height 0.026634
 linethick = 0.500000;
-box at 1.458171,1.281505 wid 0.127208 height 0.084805 "Mirror"
-box at 1.458171,1.281505 wid 0.071652 height 0.029249
+box at 1.413208,1.241990 wid 0.123285 height 0.082190 "Mirror"
+box at 1.413208,1.241990 wid 0.067729 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.067058 wid 0.127208 height 0.084805 "Meter"
-box at 0.165487,3.067058 wid 0.071652 height 0.029249
+box at 0.160384,2.972484 wid 0.123285 height 0.082190 "Meter"
+box at 0.160384,2.972484 wid 0.067729 height 0.026634
 linethick = 1.000000;
-box at 0.825085,3.067058 wid 0.198461 height 0.084805 "Meter_Band"
+box at 0.799643,2.972484 wid 0.192341 height 0.082190 "Meter_Band"
 linethick = 1.000000;
-box at 1.841795,0.984688 wid 0.263845 height 0.084805 "Gateway_Chassis"
+box at 1.785002,0.954325 wid 0.255710 height 0.082190 "Gateway_Chassis"
 linethick = 0.500000;
-box at 1.458171,0.857480 wid 0.295647 height 0.084805 "HA_Chassis_Group"
-box at 1.458171,0.857480 wid 0.240092 height 0.029249
+box at 1.413208,0.831040 wid 0.286531 height 0.082190 "HA_Chassis_Group"
+box at 1.413208,0.831040 wid 0.230975 height 0.026634
 linethick = 0.500000;
-box at 0.825085,2.292110 wid 0.228499 height 0.084805 "MAC_Binding"
-box at 0.825085,2.292110 wid 0.172943 height 0.029249
+box at 0.799643,2.221431 wid 0.221453 height 0.082190 "MAC_Binding"
+box at 0.799643,2.221431 wid 0.165897 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.194265 wid 0.239099 height 0.084805 "DHCP_Options"
-box at 0.165487,3.194265 wid 0.183544 height 0.029249
+box at 0.160384,3.095769 wid 0.231726 height 0.082190 "DHCP_Options"
+box at 0.160384,3.095769 wid 0.176171 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.321473 wid 0.270901 height 0.084805 "DHCPv6_Options"
-box at 0.165487,3.321473 wid 0.215346 height 0.029249
+box at 0.160384,3.219054 wid 0.262548 height 0.082190 "DHCPv6_Options"
+box at 0.160384,3.219054 wid 0.206992 height 0.026634
 linethick = 0.500000;
-box at 0.825085,2.164902 wid 0.127208 height 0.084805 "DNS"
-box at 0.825085,2.164902 wid 0.071652 height 0.029249
+box at 0.799643,2.098146 wid 0.123285 height 0.082190 "DNS"
+box at 0.799643,2.098146 wid 0.067729 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.448680 wid 0.198461 height 0.084805 "RBAC_Role"
-box at 0.165487,3.448680 wid 0.142905 height 0.029249
+box at 0.160384,3.342339 wid 0.192341 height 0.082190 "RBAC_Role"
+box at 0.160384,3.342339 wid 0.136785 height 0.026634
 linethick = 0.500000;
-box at 0.825085,3.448680 wid 0.283266 height 0.084805 "RBAC_Permission"
-box at 0.825085,3.448680 wid 0.227710 height 0.029249
+box at 0.799643,3.342339 wid 0.274531 height 0.082190 "RBAC_Permission"
+box at 0.799643,3.342339 wid 0.218975 height 0.026634
 linethick = 1.000000;
-box at 2.206965,0.857480 wid 0.198461 height 0.084805 "HA_Chassis"
+box at 2.138913,0.831040 wid 0.192341 height 0.082190 "HA_Chassis"
 linethick = 0.500000;
-box at 2.206965,0.485271 wid 0.258537 height 0.084805 "Controller_Event"
-box at 2.206965,0.485271 wid 0.202981 height 0.029249
+box at 2.138913,0.470308 wid 0.250564 height 0.082190 "Controller_Event"
+box at 2.138913,0.470308 wid 0.195009 height 0.026634
 linethick = 0.500000;
-box at 0.825085,2.037695 wid 0.203769 height 0.084805 "IP_Multicast"
-box at 0.825085,2.037695 wid 0.148214 height 0.029249
+box at 0.799643,1.974861 wid 0.197486 height 0.082190 "IP_Multicast"
+box at 0.799643,1.974861 wid 0.141931 height 0.026634
 linethick = 0.500000;
-box at 0.165487,1.281505 wid 0.216134 height 0.084805 "IGMP_Group"
-box at 0.165487,1.281505 wid 0.160578 height 0.029249
+box at 0.160384,1.241990 wid 0.209469 height 0.082190 "IGMP_Group"
+box at 0.160384,1.241990 wid 0.153914 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.575888 wid 0.256773 height 0.084805 "Service_Monitor"
-box at 0.165487,3.575888 wid 0.201217 height 0.029249
+box at 0.160384,3.465624 wid 0.248855 height 0.082190 "Service_Monitor"
+box at 0.160384,3.465624 wid 0.193299 height 0.026634
 linethick = 0.500000;
-box at 0.165487,2.685435 wid 0.233807 height 0.084805 "Load_Balancer"
-box at 0.165487,2.685435 wid 0.178252 height 0.029249
+box at 0.160384,2.602629 wid 0.226598 height 0.082190 "Load_Balancer"
+box at 0.160384,2.602629 wid 0.171042 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.703095 wid 0.127208 height 0.084805 "BFD"
-box at 0.165487,3.703095 wid 0.071652 height 0.029249
+box at 0.160384,3.588909 wid 0.123285 height 0.082190 "BFD"
+box at 0.160384,3.588909 wid 0.067729 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.830303 wid 0.127208 height 0.084805 "FDB"
-box at 0.165487,3.830303 wid 0.071652 height 0.029249
+box at 0.160384,3.712194 wid 0.123285 height 0.082190 "FDB"
+box at 0.160384,3.712194 wid 0.067729 height 0.026634
 linethick = 0.500000;
-box at 0.825085,1.910487 wid 0.316848 height 0.084805 "Static_MAC_Binding"
-box at 0.825085,1.910487 wid 0.261293 height 0.029249
+box at 0.799643,1.851576 wid 0.307078 height 0.082190 "Static_MAC_Binding"
+box at 0.799643,1.851576 wid 0.251523 height 0.026634
 linethick = 0.500000;
-box at 0.165487,3.957510 wid 0.330977 height 0.084805 "Chassis_Template_Var"
-box at 0.165487,3.957510 wid 0.275421 height 0.029249
+box at 0.160384,3.835479 wid 0.243710 height 0.082190 "ECMP_Nexthop"
+box at 0.160384,3.835479 wid 0.188154 height 0.026634
+linethick = 0.500000;
+box at 0.160384,3.958764 wid 0.320771 height 0.082190 "Chassis_Template_Var"
+box at 0.160384,3.958764 wid 0.265216 height 0.026634
 linethick = 1.000000;
-spline -> from 0.256162,0.114583 to 0.256162,0.114583 to 0.380808,0.126690 to 0.607085,0.148667 to 0.732664,0.160863
-"connections*" at 0.498823,0.167549
+spline -> from 0.248263,0.111050 to 0.248263,0.111050 to 0.369066,0.122784 to 0.588365,0.144082 to 0.710072,0.155903
+"connections*" at 0.483442,0.162383
 linethick = 1.000000;
-spline -> from 0.255840,0.096427 to 0.255840,0.096427 to 0.292204,0.092532 to 0.334810,0.088055 to 0.373379,0.084216 to 0.511764,0.070442 to 0.674268,0.055668 to 0.760921,0.047901
-"ssl?" at 0.498823,0.101590
+spline -> from 0.247951,0.093453 to 0.247951,0.093453 to 0.283194,0.089679 to 0.324486,0.085340 to 0.361866,0.081620 to 0.495984,0.068270 to 0.653476,0.053951 to 0.737458,0.046424
+"ssl?" at 0.483442,0.098457
 linethick = 1.000000;
-spline -> from 2.615047,0.900222 to 2.615047,0.900222 to 2.673054,1.013827 to 2.830452,1.322381 to 2.888458,1.436325
-"encaps+" at 2.753788,1.279436
+spline -> from 2.534411,0.872463 to 2.534411,0.872463 to 2.590629,0.982565 to 2.743173,1.281605 to 2.799391,1.392036
+"encaps+" at 2.668874,1.239984
 linethick = 0.500000;
-spline -> from 2.329085,0.618127 to 2.329085,0.618127 to 2.379968,0.625573 to 2.437465,0.641177 to 2.481055,0.673148 to 2.529055,0.708122 to 2.559076,0.771386 to 2.574849,0.813908
-"chassis?" at 2.429833,0.690516
+spline -> from 2.257266,0.599066 to 2.257266,0.599066 to 2.306580,0.606283 to 2.362305,0.621406 to 2.404551,0.652391 to 2.451070,0.686286 to 2.480165,0.747600 to 2.495453,0.788810
+"chassis?" at 2.354908,0.669224
 linethick = 1.000000;
-spline -> from 0.276481,2.467486 to 0.276481,2.467486 to 0.483338,2.477832 to 0.942234,2.476815 to 1.267953,2.296859 to 1.335526,2.259544 to 1.393618,2.189665 to 1.426658,2.144379
-"logical_datapath?" at 0.825085,2.473762
+spline -> from 0.267956,2.391400 to 0.267956,2.391400 to 0.468434,2.401427 to 0.913180,2.400441 to 1.228856,2.226034 to 1.294345,2.189870 to 1.350645,2.122146 to 1.382666,2.078256
+"logical_datapath?" at 0.799643,2.397482
 linethick = 1.000000;
-spline -> from 0.275905,2.482751 to 0.275905,2.482751 to 0.369682,2.504631 to 0.508236,2.540588 to 0.624267,2.586044 to 0.643992,2.593676 to 0.647690,2.598256 to 0.666669,2.607754 to 0.687667,2.618270 to 0.710361,2.629294 to 0.731765,2.639640
-"logical_dp_group?" at 0.498823,2.600969
+spline -> from 0.267397,2.406194 to 0.267397,2.406194 to 0.358283,2.427399 to 0.492565,2.462248 to 0.605017,2.506302 to 0.624134,2.513699 to 0.627718,2.518137 to 0.646112,2.527343 to 0.666462,2.537534 to 0.688456,2.548219 to 0.709201,2.558246
+"logical_dp_group?" at 0.483442,2.520767
 linethick = 0.500000;
-spline -> from 0.970559,2.689845 to 0.970559,2.689845 to 1.065032,2.686622 to 1.186032,2.667287 to 1.267953,2.598256 to 1.409442,2.479189 to 1.444534,2.241735 to 1.453117,2.144379
-"datapaths*" at 1.146937,2.699852
+spline -> from 0.940632,2.606902 to 0.940632,2.606902 to 1.032191,2.603779 to 1.149460,2.585040 to 1.228856,2.518137 to 1.365981,2.402742 to 1.399992,2.172610 to 1.408309,2.078256
+"datapaths*" at 1.111570,2.616601
 linethick = 1.000000;
-spline -> from 0.295037,1.754276 to 0.295037,1.754276 to 0.457353,1.750375 to 0.745606,1.754107 to 0.983501,1.813301 to 1.118001,1.846714 to 1.150838,1.867067 to 1.267953,1.941017 to 1.321567,1.974939 to 1.375978,2.023278 to 1.412342,2.057878
-"datapath" at 0.825085,1.830601
+spline -> from 0.285939,1.700182 to 0.285939,1.700182 to 0.443251,1.696402 to 0.722614,1.700018 to 0.953174,1.757387 to 1.083527,1.789769 to 1.115351,1.809495 to 1.228856,1.881165 to 1.280816,1.914041 to 1.333549,1.960889 to 1.368792,1.994423
+"datapath" at 0.799643,1.774153
 linethick = 0.500000;
-spline -> from 0.227108,1.716453 to 0.227108,1.716453 to 0.351483,1.625610 to 0.638463,1.416057 to 0.763109,1.325027
-"ports*" at 0.498823,1.623371
+spline -> from 0.220105,1.663526 to 0.220105,1.663526 to 0.340645,1.575484 to 0.618776,1.372392 to 0.739578,1.284169
+"ports*" at 0.483442,1.573314
 linethick = 0.500000;
-spline -> from 0.835109,1.238000 to 0.835109,1.238000 to 0.852901,1.149549 to 0.905022,0.947272 to 1.025903,0.831564 to 1.388360,0.484661 to 1.584632,0.514359 to 2.077723,0.421667 to 2.258866,0.387610 to 2.370300,0.370903 to 2.481055,0.518260 to 2.549747,0.609595 to 2.575358,0.746064 to 2.584178,0.814739
-"chassis?" at 1.841795,0.511476
+spline -> from 0.809358,1.199826 to 0.809358,1.199826 to 0.826601,1.114102 to 0.877115,0.918062 to 0.994269,0.805922 to 1.345549,0.469716 to 1.535769,0.498499 to 2.013655,0.408665 to 2.189213,0.375658 to 2.297210,0.359466 to 2.404551,0.502280 to 2.471125,0.590798 to 2.495946,0.723058 to 2.504494,0.789616
+"chassis?" at 1.785002,0.495704
 linethick = 0.500000;
-spline -> from 0.930989,1.306404 to 0.930989,1.306404 to 0.961417,1.312968 to 0.994864,1.319447 to 1.025903,1.323908 to 1.151397,1.341903 to 1.183674,1.340394 to 1.310356,1.345109 to 1.833993,1.364597 to 2.085355,1.549506 to 2.481055,1.206114 to 2.571627,1.127669 to 2.587061,0.975020 to 2.588927,0.900493
-"additional_chassis*" at 1.841795,1.430202
+spline -> from 0.902282,1.266121 to 0.902282,1.266121 to 0.931772,1.272482 to 0.964187,1.278761 to 0.994269,1.283085 to 1.115894,1.300525 to 1.147175,1.299062 to 1.269951,1.303632 to 1.777441,1.322519 to 2.021052,1.501726 to 2.404551,1.168923 to 2.492330,1.092897 to 2.507288,0.944955 to 2.509096,0.872726
+"additional_chassis*" at 1.785002,1.386101
 linethick = 0.500000;
-spline -> from 0.930904,1.266512 to 0.930904,1.266512 to 1.028583,1.252689 to 1.179214,1.232200 to 1.310356,1.217902 to 1.829583,1.161269 to 2.059744,1.425131 to 2.481055,1.116594 to 2.551104,1.065388 to 2.575697,0.960111 to 2.584178,0.900714
-"requested_chassis?" at 1.841795,1.286509
+spline -> from 0.902200,1.227458 to 0.902200,1.227458 to 0.996866,1.214061 to 1.142852,1.194204 to 1.269951,1.180347 to 1.773167,1.125461 to 1.996231,1.381187 to 2.404551,1.082163 to 2.472440,1.032537 to 2.496275,0.930506 to 2.504494,0.872940
+"requested_chassis?" at 1.785002,1.246839
 linethick = 0.500000;
-spline -> from 0.931549,1.243292 to 0.931549,1.243292 to 0.961706,1.233217 to 0.994847,1.223075 to 1.025903,1.215544 to 1.598744,1.076566 to 1.771576,1.179824 to 2.336208,1.010587 to 2.404052,0.990285 to 2.421013,0.981872 to 2.481055,0.944626 to 2.501578,0.931990 to 2.522440,0.915928 to 2.540249,0.901036
-"requested_additional_chassis*" at 1.841795,1.145156
+spline -> from 0.902824,1.204955 to 0.902824,1.204955 to 0.932051,1.195191 to 0.964171,1.185361 to 0.994269,1.178062 to 1.549446,1.043369 to 1.716949,1.143444 to 2.264170,0.979425 to 2.329922,0.959749 to 2.346360,0.951596 to 2.404551,0.915498 to 2.424441,0.903252 to 2.444659,0.887685 to 2.461919,0.873252
+"requested_additional_chassis*" at 1.785002,1.109844
 linethick = 0.500000;
-spline -> from 0.849271,1.324501 to 0.849271,1.324501 to 0.880072,1.379811 to 0.942014,1.473385 to 1.025903,1.512361 to 1.290003,1.635023 to 2.045157,1.524692 to 2.336208,1.521775 to 2.545507,1.519689 to 2.600461,1.546521 to 2.806876,1.512361 to 2.820614,1.510072 to 2.835031,1.506357 to 2.848770,1.502219
-"encap?" at 2.206965,1.555052
+spline -> from 0.823084,1.283660 to 0.823084,1.283660 to 0.852935,1.337264 to 0.912967,1.427953 to 0.994269,1.465727 to 1.250225,1.584607 to 1.982094,1.477678 to 2.264170,1.474850 to 2.467015,1.472828 to 2.520274,1.498833 to 2.720325,1.465727 to 2.733639,1.463508 to 2.747612,1.459908 to 2.760926,1.455897
+"encap?" at 2.138913,1.507102
 linethick = 0.500000;
-spline -> from 0.909211,1.324925 to 0.909211,1.324925 to 1.026700,1.383170 to 1.251654,1.479372 to 1.455814,1.479372 to 1.455814,1.479372 to 1.455814,1.479372 to 2.593337,1.479372 to 2.682043,1.479372 to 2.784487,1.479372 to 2.848430,1.479372
-"additional_encap*" at 2.206965,1.496164
+spline -> from 0.881175,1.284071 to 0.881175,1.284071 to 0.995041,1.340519 to 1.213059,1.433755 to 1.410923,1.433755 to 1.410923,1.433755 to 1.410923,1.433755 to 2.513370,1.433755 to 2.599341,1.433755 to 2.698626,1.433755 to 2.760598,1.433755
+"additional_encap*" at 2.138913,1.450029
 linethick = 1.000000;
-spline -> from 0.843810,1.324518 to 0.843810,1.324518 to 0.871083,1.390124 to 0.932261,1.514295 to 1.025903,1.578323 to 1.116865,1.640502 to 1.183963,1.560599 to 1.267953,1.631903 to 1.400758,1.744608 to 1.440566,1.964762 to 1.451743,2.057878
-"datapath" at 1.146937,1.649288
+spline -> from 0.817790,1.283676 to 0.817790,1.283676 to 0.844223,1.347258 to 0.903515,1.467601 to 0.994269,1.529655 to 1.082426,1.589916 to 1.147455,1.512477 to 1.228856,1.581582 to 1.357565,1.690813 to 1.396145,1.904178 to 1.406978,1.994423
+"datapath" at 1.111570,1.598431
 linethick = 0.500000;
-spline -> from 0.931210,1.281505 to 0.931210,1.281505 to 1.062963,1.281505 to 1.286119,1.281505 to 1.393906,1.281505
-"mirror_rules*" at 1.146937,1.298280
+spline -> from 0.902496,1.241990 to 0.902496,1.241990 to 1.030186,1.241990 to 1.246461,1.241990 to 1.350924,1.241990
+"mirror_rules*" at 1.111570,1.258247
 linethick = 1.000000;
-spline -> from 0.845336,1.238119 to 0.845336,1.238119 to 0.873475,1.176313 to 0.934415,1.065083 to 1.025903,1.017066 to 1.243377,0.902919 to 1.540432,0.928801 to 1.708821,0.957211
-"gateway_chassis*" at 1.146937,1.034451
+spline -> from 0.819270,1.199941 to 0.819270,1.199941 to 0.846541,1.140041 to 0.905602,1.032241 to 0.994269,0.985705 to 1.205037,0.875077 to 1.492932,0.900161 to 1.656128,0.927695
+"gateway_chassis*" at 1.111570,1.002554
 linethick = 1.000000;
-spline -> from 0.836262,1.238136 to 0.836262,1.238136 to 0.855225,1.157215 to 0.908041,0.984162 to 1.025903,0.904004 to 1.108164,0.848050 to 1.220429,0.837551 to 1.309627,0.840451
-"ha_chassis_group?" at 1.146937,0.921372
+spline -> from 0.810476,1.199958 to 0.810476,1.199958 to 0.828853,1.121532 to 0.880041,0.953815 to 0.994269,0.876129 to 1.073993,0.821900 to 1.182796,0.811725 to 1.269244,0.814536
+"ha_chassis_group?" at 1.111570,0.892961
 linethick = 1.000000;
-spline -> from 0.230042,3.067058 to 0.230042,3.067058 to 0.344342,3.067058 to 0.588564,3.067058 to 0.725151,3.067058
-"bands+" at 0.498823,3.083849
+spline -> from 0.222949,2.972484 to 0.222949,2.972484 to 0.333724,2.972484 to 0.570415,2.972484 to 0.702790,2.972484
+"bands+" at 0.483442,2.988757
 linethick = 0.500000;
-spline -> from 1.974769,0.977106 to 1.974769,0.977106 to 2.104860,0.967286 to 2.309410,0.945644 to 2.481055,0.899883 to 2.495133,0.896151 to 2.509719,0.891165 to 2.523458,0.885941
-"chassis?" at 2.206965,0.984976
+spline -> from 1.913876,0.946977 to 1.913876,0.946977 to 2.039956,0.937459 to 2.238198,0.916484 to 2.404551,0.872135 to 2.418194,0.868518 to 2.432331,0.863685 to 2.445646,0.858622
+"chassis?" at 2.138913,0.954604
 linethick = 0.500000;
-spline -> from 1.607140,0.815061 to 1.607140,0.815061 to 1.781923,0.770538 to 2.082132,0.713057 to 2.336208,0.760294 to 2.402186,0.772574 to 2.473253,0.801458 to 2.523118,0.824559
-"ref_chassis*" at 2.206965,0.777679
+spline -> from 1.557583,0.789928 to 1.557583,0.789928 to 1.726976,0.746778 to 2.017929,0.691070 to 2.264170,0.736850 to 2.328114,0.748751 to 2.396989,0.776745 to 2.445317,0.799133
+"ref_chassis*" at 2.138913,0.753699
 linethick = 1.000000;
-spline -> from 1.606648,0.857480 to 1.606648,0.857480 to 1.754785,0.857480 to 1.979858,0.857480 to 2.107404,0.857480
-"ha_chassis*" at 1.841795,0.874255
+spline -> from 1.557106,0.831040 to 1.557106,0.831040 to 1.700675,0.831040 to 1.918808,0.831040 to 2.042422,0.831040
+"ha_chassis*" at 1.785002,0.847297
 linethick = 1.000000;
-spline -> from 0.939639,2.272265 to 0.939639,2.272265 to 1.029753,2.254795 to 1.158792,2.226131 to 1.267953,2.188478 to 1.302961,2.176266 to 1.340207,2.159814 to 1.372230,2.144549
-"datapath" at 1.146937,2.271248
+spline -> from 0.910665,2.202199 to 0.910665,2.202199 to 0.998000,2.185268 to 1.123061,2.157487 to 1.228856,2.120995 to 1.262784,2.109160 to 1.298881,2.093215 to 1.329916,2.078421
+"datapath" at 1.111570,2.201213
 linethick = 1.000000;
-spline -> from 0.888841,2.158626 to 0.888841,2.158626 to 0.988589,2.148619 to 1.188135,2.128436 to 1.321856,2.114867
-"datapaths+" at 1.146937,2.162867
+spline -> from 0.861433,2.092064 to 0.861433,2.092064 to 0.958105,2.082366 to 1.151498,2.062805 to 1.281096,2.049654
+"datapaths+" at 1.111570,2.096174
 linethick = 0.500000;
-spline -> from 0.265881,3.448680 to 0.265881,3.448680 to 0.376500,3.448680 to 0.557305,3.448680 to 0.682748,3.448680
-"permissions value*" at 0.498823,3.465472
+spline -> from 0.257682,3.342339 to 0.257682,3.342339 to 0.364891,3.342339 to 0.540120,3.342339 to 0.661695,3.342339
+"permissions value*" at 0.483442,3.358612
 linethick = 0.500000;
-spline -> from 2.307035,0.857480 to 2.307035,0.857480 to 2.375049,0.857480 to 2.463924,0.857480 to 2.523458,0.857480
-"chassis?" at 2.429833,0.874255
+spline -> from 2.235897,0.831040 to 2.235897,0.831040 to 2.301813,0.831040 to 2.387948,0.831040 to 2.445646,0.831040
+"chassis?" at 2.354908,0.847297
 linethick = 0.500000;
-spline -> from 2.337226,0.510272 to 2.337226,0.510272 to 2.387261,0.525604 to 2.442045,0.549960 to 2.481055,0.588343 to 2.544659,0.650760 to 2.571796,0.755511 to 2.582312,0.814230
-"chassis?" at 2.429833,0.605711
+spline -> from 2.265156,0.494537 to 2.265156,0.494537 to 2.313648,0.509397 to 2.366743,0.533002 to 2.404551,0.570201 to 2.466193,0.630693 to 2.492494,0.732214 to 2.502686,0.789123
+"chassis?" at 2.354908,0.587034
 linethick = 0.500000;
-spline -> from 0.928106,2.046684 to 0.928106,2.046684 to 1.017423,2.054656 to 1.151448,2.067207 to 1.267953,2.079419 to 1.285593,2.081284 to 1.304131,2.083320 to 1.322432,2.085525
-"datapath" at 1.146937,2.096888
+spline -> from 0.899487,1.983573 to 0.899487,1.983573 to 0.986050,1.991299 to 1.115943,2.003463 to 1.228856,2.015299 to 1.245951,2.017107 to 1.263918,2.019080 to 1.281654,2.021216
+"datapath" at 1.111570,2.032230
 linethick = 0.500000;
-spline -> from 0.174139,1.238373 to 0.174139,1.238373 to 0.204838,1.046290 to 0.356724,0.277974 to 0.822727,0.277974 to 0.822727,0.277974 to 0.822727,0.277974 to 2.209340,0.277974 to 2.345028,0.277974 to 2.397098,0.310505 to 2.481055,0.416952 to 2.576037,0.537087 to 2.588757,0.728967 to 2.589436,0.814213
-"chassis?" at 1.458171,0.294748
+spline -> from 0.168769,1.200188 to 0.168769,1.200188 to 0.198522,1.014027 to 0.345724,0.269402 to 0.797358,0.269402 to 0.797358,0.269402 to 0.797358,0.269402 to 2.141214,0.269402 to 2.272718,0.269402 to 2.323183,0.300930 to 2.404551,0.404095 to 2.496603,0.520526 to 2.508932,0.706489 to 2.509589,0.789106
+"chassis?" at 1.413208,0.285660
 linethick = 0.500000;
-spline -> from 0.264252,1.324807 to 0.264252,1.324807 to 0.517056,1.438869 to 1.185353,1.743760 to 1.267953,1.816184 to 1.347687,1.886233 to 1.407763,1.997667 to 1.436698,2.058387
-"datapath?" at 0.825085,1.670489
+spline -> from 0.256104,1.283956 to 0.256104,1.283956 to 0.501112,1.394501 to 1.148803,1.689991 to 1.228856,1.760181 to 1.306131,1.828070 to 1.364354,1.936068 to 1.392397,1.994916
+"datapath?" at 0.799643,1.618979
 linethick = 0.500000;
-spline -> from 0.274514,1.281505 to 0.274514,1.281505 to 0.397379,1.281505 to 0.597875,1.281505 to 0.719333,1.281505
-"ports*" at 0.498823,1.298280
+spline -> from 0.266049,1.241990 to 0.266049,1.241990 to 0.385126,1.241990 to 0.579439,1.241990 to 0.697152,1.241990
+"ports*" at 0.483442,1.258247
 linethick = 1.000000;
-spline -> from 0.283469,2.645746 to 0.283469,2.645746 to 0.312608,2.636587 to 0.343986,2.627089 to 0.373379,2.619457 to 0.772014,2.516673 to 0.949935,2.640658 to 1.267953,2.379289 to 1.348043,2.313480 to 1.407576,2.204760 to 1.436427,2.144718
-"datapaths*" at 0.825085,2.589266
+spline -> from 0.274728,2.564164 to 0.274728,2.564164 to 0.302969,2.555287 to 0.333379,2.546082 to 0.361866,2.538685 to 0.748208,2.439070 to 0.920643,2.559232 to 1.228856,2.305923 to 1.306476,2.242143 to 1.364173,2.136776 to 1.392134,2.078585
+"datapaths*" at 0.799643,2.509425
 linethick = 1.000000;
-spline -> from 0.283418,2.685096 to 0.283418,2.685096 to 0.393750,2.684757 to 0.560358,2.684078 to 0.679152,2.683569
-"datapath_group?" at 0.498823,2.699852
+spline -> from 0.274679,2.602300 to 0.274679,2.602300 to 0.381608,2.601971 to 0.543079,2.601313 to 0.658210,2.600820
+"datapath_group?" at 0.483442,2.616601
 linethick = 1.000000;
-spline -> from 0.283418,2.655414 to 0.283418,2.655414 to 0.312574,2.649139 to 0.343952,2.643372 to 0.373379,2.640149 to 0.484220,2.628107 to 0.513393,2.628277 to 0.624267,2.640149 to 0.642143,2.642015 to 0.660767,2.644898 to 0.679135,2.648291
-"ls_datapath_group?" at 0.498823,2.655245
+spline -> from 0.274679,2.573533 to 0.274679,2.573533 to 0.302936,2.567451 to 0.333346,2.561862 to 0.361866,2.558739 to 0.469288,2.547068 to 0.497562,2.547232 to 0.605017,2.558739 to 0.622343,2.560547 to 0.640392,2.563342 to 0.658194,2.566629
+"ls_datapath_group?" at 0.483442,2.573369
 linethick = 1.000000;
-spline -> from 0.282502,2.711894 to 0.282502,2.711894 to 0.311947,2.717491 to 0.343698,2.722749 to 0.373379,2.725463 to 0.484372,2.736318 to 0.513376,2.737336 to 0.624267,2.725463 to 0.642126,2.723597 to 0.660750,2.720884 to 0.679135,2.717491
-"lr_datapath_group?" at 0.498823,2.749378
+spline -> from 0.273791,2.628272 to 0.273791,2.628272 to 0.302328,2.633696 to 0.333100,2.638792 to 0.361866,2.641422 to 0.469436,2.651943 to 0.497545,2.652929 to 0.605017,2.641422 to 0.622326,2.639614 to 0.640375,2.636984 to 0.658194,2.633696
+"lr_datapath_group?" at 0.483442,2.664600
 linethick = 1.000000;
-spline -> from 0.984620,1.938982 to 0.984620,1.938982 to 1.069696,1.956451 to 1.175923,1.981723 to 1.267953,2.013610 to 1.302995,2.025652 to 1.340241,2.042274 to 1.372264,2.057709
-"datapath" at 1.146937,2.030910
+spline -> from 0.954259,1.879192 to 0.954259,1.879192 to 1.036712,1.896123 to 1.139663,1.920616 to 1.228856,1.951519 to 1.262816,1.963190 to 1.298914,1.979300 to 1.329949,1.994258
+"datapath" at 1.111570,1.968286
 .ps +3
 .PE
 .RE\}
@@ -464,13 +470,6 @@ optional string
 optional string
 .TQ 2.50in
 \fBoptions : debug_drop_collector_set\fR
-optional string
-.RE
-.TQ .25in
-\fIOptions for configuring Load Balancers:\fR
-.RS .25in
-.TQ 2.50in
-\fBoptions : lb_hairpin_use_ct_mark\fR
 optional string
 .RE
 .TQ .25in
@@ -532,13 +531,6 @@ If set to a 8-bit number and if \fBdebug_drop_collector_set\fR is also configure
 The observation_point_id will be set to the OpenFlow table number\[char46]
 .IP "\fBoptions : debug_drop_collector_set\fR: optional string"
 If set to a 32-bit number \fBovn\-controller\fR will add a \fBsample\fR action to every flow that does not come from a logical flow that contains a \(cqdrop\(cq action\[char46] The sample action will have the specified collector_set_id\[char46] The value must match that of the local OVS configuration as described in \fBovs\-actions\fR(7)\[char46]
-.ST "Options for configuring Load Balancers:"
-.PP
-.PP
-.PP
-These options apply when \fBovn\-controller\fR configures load balancer related flows\[char46]
-.IP "\fBoptions : lb_hairpin_use_ct_mark\fR: optional string"
-By default this option is turned on (even if not present in the database) unless its value is explicitly set to \fBfalse\fR\[char46] This value is automatically set to \fBfalse\fR by \fBovn\-northd\fR when action \fBct_lb_mark\fR cannot be used for new load balancer sessions and action \fBct_lb\fR will be used instead\[char46] \fBovn\-controller\fR then knows that it should check \fBct_label\[char46]natted\fR to detect load balanced traffic\[char46]
 .ST "Options for configuring ovn-sbctl:"
 .PP
 .PP
@@ -731,6 +723,9 @@ optional string, either \fBtrue\fR or \fBfalse\fR
 \fBoptions : dst_port\fR
 optional string, containing an integer
 .TQ 3.00in
+\fBoptions : is_default\fR
+optional string, either \fBtrue\fR or \fBfalse\fR
+.TQ 3.00in
 \fBip\fR
 string
 .TQ 3.00in
@@ -753,6 +748,8 @@ Not all devices see such a benefit\[char46] The most notable exception is hardwa
 This option applies to \fBgeneve\fR and \fBvxlan\fR encapsulations\[char46]
 .IP "\fBoptions : dst_port\fR: optional string, containing an integer"
 If set, overrides the UDP (for \fBgeneve\fR and \fBvxlan\fR) or TCP (for \fBstt\fR) destination port\[char46]
+.IP "\fBoptions : is_default\fR: optional string, either \fBtrue\fR or \fBfalse\fR"
+When there are multiple encaps for a chassis with different IPs, this option indicates if the encap is the default one that matches the IP in \fBexternal_ids:ovn-encap-ip-default\fR column of the Open_vSwitch database\(cqs \fBOpen_vSwitch\fR table\[char46]
 .IP "\fBip\fR: string"
 The IPv4 address of the encapsulation tunnel endpoint\[char46]
 .IP "\fBchassis_name\fR: string"
@@ -865,6 +862,9 @@ string
 map of string-string pairs
 .TQ 3.00in
 \fBcontroller_meter\fR
+optional string
+.TQ 3.00in
+\fBflow_desc\fR
 optional string
 .TQ 3.00in
 \fBexternal_ids : stage-name\fR
@@ -1216,10 +1216,17 @@ Commit the flow to the connection tracking entry associated with it by a previou
 .IP
 Note that if you want processing to continue in the next table, you must execute the \fBnext\fR action after \fBct_commit\fR\[char46] You may also leave out \fBnext\fR which will commit connection tracking state, and then drop the packet\[char46] This could be useful for setting \fBct_mark\fR on a connection tracking entry before dropping a packet, for example\[char46]
 .TP
+\fBct_commit_to_zone(dnat);\fR
+.TQ .5in
+\fBct_commit_to_zone(snat);\fR
+Commit the flow to the specific zone in the connection tracker\[char46] The packet is then automatically sent to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
+.IP
+Note that this action is meaningful only in the Logical Router Datapath as the Logical Switch Datapath does not use separate connection tracking zones\[char46] Using this action in Logical Switch Datapath falls back to committing the flow into the logical port\(cqs conntrack zone\[char46]
+.TP
 \fBct_dnat;\fR
 .TQ .5in
 \fBct_dnat(\fIIP\fB);\fR
-\fBct_dnat\fR sends the packet through the DNAT zone in connection tracking table to unDNAT any packet that was DNATed in the opposite direction\[char46] The packet is then automatically sent to to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
+\fBct_dnat\fR sends the packet through the DNAT zone in connection tracking table to unDNAT any packet that was DNATed in the opposite direction\[char46] The packet is then automatically sent to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
 .IP
 \fBct_dnat(\fIIP\fB)\fR sends the packet through the DNAT zone to change the destination IP address of the packet to the one provided inside the parentheses and commits the connection\[char46] The packet is then automatically sent to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
 .TP
@@ -1233,7 +1240,7 @@ Note that if you want processing to continue in the next table, you must execute
 \fBct_dnat_in_czone;\fR
 .TQ .5in
 \fBct_dnat_in_czone(\fIIP\fB);\fR
-\fBct_dnat_in_czone\fR sends the packet through the common NAT zone (used for both DNAT and SNAT) in connection tracking table to unDNAT any packet that was DNATed in the opposite direction\[char46] The packet is then automatically sent to to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
+\fBct_dnat_in_czone\fR sends the packet through the common NAT zone (used for both DNAT and SNAT) in connection tracking table to unDNAT any packet that was DNATed in the opposite direction\[char46] The packet is then automatically sent to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
 .IP
 \fBct_dnat_in_czone(\fIIP\fB)\fR sends the packet through the common NAT zone to change the destination IP address of the packet to the one provided inside the parentheses and commits the connection\[char46] The packet is then automatically sent to the next tables as if followed by \fBnext;\fR action\[char46] The next tables will see the changes in the packet caused by the connection tracker\[char46]
 .TP
@@ -1812,6 +1819,30 @@ An unsigned 32-bit integer to be used as \fBObsservationPointID\fR or the string
 .TP
 \fBmac_cache_use;\fR
 This action resubmits to corresponding table which updates the use statistics of MAC cache\[char46]
+.TP
+\fB\fIR\fB = dhcp_relay_req_chk(\fIrelay-ip\fB,
+\fIserver-ip\fB);\fR
+\fBParameters\fR: Logical Router Port IP \fIrelay-ip\fR, DHCP Server IP \fIserver-ip\fR\[char46]
+.IP
+\fBResult\fR: stored to a 1-bit subfield \fIR\fR\[char46]
+.IP
+This action executes on the source node on which the DHCP request (DHCPDISCOVER or DHCPREQUEST) originated\[char46]
+.IP
+When this action applied successfully on the DHCP request packet, it updates GIADDR in the DHCP packet with \fIrelay-ip\fR and stores 1 in R\[char46]
+.IP
+When this action failed to apply on the packet, it leaves the packet unchanged and stores 0 in R\[char46]
+.TP
+\fB\fIR\fB = dhcp_relay_resp_chk(\fIrelay-ip\fB,
+\fIserver-ip\fB);\fR
+\fBParameters\fR: Logical Router Port IP \fIrelay-ip\fR, DHCP Server IP \fIserver-ip\fR\[char46]
+.IP
+\fBResult\fR: stored to a 1-bit subfield \fIR\fR\[char46]
+.IP
+This action executes on the first node (Redirect Chassis node) which processes the DHCP response(DHCPOFFER, DHCPACK) from the DHCP server\[char46]
+.IP
+When this action applied successfully on the DHCP response packet, it updates the destination MAC and destination IP in the packet and stores 1 in R\[char46] \fIrelay-ip\fR and \fIserver-ip\fR are used to validate GIADDR and SERVER-ID in the DHCP response packet\[char46]
+.IP
+When this action failed to apply on the packet, it leaves the packet unchanged and stores 0 in R\[char46]
 .RE
 .IP "\fBtags\fR: map of string-string pairs"
 Key-value pairs that provide additional information to help ovn-controller processing the logical flow\[char46] Below are the tags used by ovn-controller\[char46]
@@ -1822,6 +1853,8 @@ In the logical flow\(cqs \(dqmatch\(dq column, if a logical port P is compared w
 .RE
 .IP "\fBcontroller_meter\fR: optional string"
 The name of the meter in table \fBMeter\fR to be used for all packets that the logical flow might send to \fBovn\-controller\fR\[char46]
+.IP "\fBflow_desc\fR: optional string"
+Human-readable explanation of the flow, this is optional and used to provide context for the given flow\[char46]
 .IP "\fBexternal_ids : stage-name\fR: optional string"
 Human-readable name for this flow\(cqs stage in the pipeline\[char46]
 .IP "\fBexternal_ids : stage-hint\fR: optional string, containing an uuid"
@@ -3042,7 +3075,7 @@ map of string-string pairs
 .IP "\fBchassis\fR: optional weak reference to \fBChassis\fR"
 The \fBChassis\fR which provides the HA functionality\[char46]
 .IP "\fBpriority\fR: integer, in range 0 to 32,767"
-Priority of the HA chassis\[char46] Chassis with highest priority will be the master in the HA chassis group\[char46]
+Priority of the HA chassis\[char46] Chassis with highest priority will be the active chassis in the HA chassis group\[char46]
 .ST "Common Columns:"
 .PP
 .IP "\fBexternal_ids\fR: map of string-string pairs"
@@ -3052,7 +3085,7 @@ See \fBExternal IDs\fR at the beginning of this document\[char46]
 .PP
 .PP
 .PP
-Table representing a group of chassis which can provide High availability services\[char46] Each chassis in the group is represented by the table \fBHA_Chassis\fR\[char46] The HA chassis with highest priority will be the master of this group\[char46] If the master chassis failover is detected, the HA chassis with the next higher priority takes over the responsibility of providing the HA\[char46] If \fBha_chassis_group\fR column of the table \fBPort_Binding\fR references this table, then this HA chassis group provides the gateway functionality and redirects the gateway traffic to the master of this group\[char46]
+Table representing a group of chassis which can provide High availability services\[char46] Each chassis in the group is represented by the table \fBHA_Chassis\fR\[char46] The HA chassis with highest priority will be the active chassis of this group\[char46] If the active chassis failover is detected, the HA chassis with the next higher priority takes over the responsibility of providing the HA\[char46] If \fBha_chassis_group\fR column of the table \fBPort_Binding\fR references this table, then this HA chassis group provides the gateway functionality and redirects the gateway traffic to the active chassis of this group\[char46]
 .SS "Summary:
 .TQ 3.00in
 \fBname\fR
@@ -3198,6 +3231,9 @@ Contains learned IGMP groups indexed by address/datapath/chassis\[char46]
 \fBaddress\fR
 string
 .TQ 3.00in
+\fBprotocol\fR
+string
+.TQ 3.00in
 \fBdatapath\fR
 optional weak reference to \fBDatapath_Binding\fR
 .TQ 3.00in
@@ -3212,6 +3248,8 @@ string
 .SS "Details:
 .IP "\fBaddress\fR: string"
 Destination IPv4 address for the IGMP group\[char46]
+.IP "\fBprotocol\fR: string"
+Group protocol version either IGMPv1,v2,v3 or MLDv1,v2\[char46]
 .IP "\fBdatapath\fR: optional weak reference to \fBDatapath_Binding\fR"
 Datapath to which this IGMP group belongs\[char46]
 .IP "\fBchassis\fR: optional weak reference to \fBChassis\fR"
@@ -3556,3 +3594,31 @@ map of string-string pairs
 The chassis this set of variable values applies to\[char46]
 .IP "\fBvariables\fR: map of string-string pairs"
 The set of variable values for a given chassis\[char46]
+.bp
+.SH "ECMP_Nexthop TABLE"
+.PP
+.PP
+.PP
+Each record in this table represents an active ECMP route committed by \fBovn\-northd\fR to \fBovs\fR connection-tracking table\[char46] \fBECMP_Nexthop\fR table is used by \fBovn\-controller\fR to track active ct entries and to flush stale ones\[char46]
+.SS "Summary:
+.TQ 3.00in
+\fBnexthop\fR
+string (must be unique within table)
+.TQ 3.00in
+\fBid\fR
+integer, in range 0 to 65,535
+.TQ 3.00in
+\fBoptions\fR
+map of string-string pairs
+.TQ 3.00in
+\fBexternal_ids\fR
+map of string-string pairs
+.SS "Details:
+.IP "\fBnexthop\fR: string (must be unique within table)"
+Nexthop IP address for this ECMP route\[char46] Nexthop IP address should be the IP address of a connected router port or the IP address of an external device used as nexthop for the given destination\[char46]
+.IP "\fBid\fR: integer, in range 0 to 65,535"
+Nexthop unique identifier\[char46] Nexthop ID is used to track active ecmp-symmetric-reply connections and flush stale ones\[char46]
+.IP "\fBoptions\fR: map of string-string pairs"
+Reserved for future use\[char46]
+.IP "\fBexternal_ids\fR: map of string-string pairs"
+See \fBExternal IDs\fR at the beginning of this document\[char46]
